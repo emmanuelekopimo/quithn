@@ -103,11 +103,11 @@ function Home() {
     }
 
     const restart = async () => {
-        const cookieValue = Cookies.get('acadeva_waitlist');
-        if (!cookieValue) {
-            setShowPopUp(true)
-        }
-
+        // const cookieValue = Cookies.get('acadeva_waitlist');
+        // if (!cookieValue) {
+        //     setShowPopUp(true)
+        // }
+        setDone(false)
 
     }
 
