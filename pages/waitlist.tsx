@@ -94,7 +94,7 @@ function WaitList() {
                         onInput={(e: any) => setEmail(e.target.value)}
                     />
                     <button className="generate-button" onClick={joinWaitlist}>Join Waitlist</button>
-                    <label className="upload-label no-margin">
+                    <label className="upload-label no-margin" onClick={closeWaitList}>
                         <div className="btn">Use Quithn</div>
                     </label>
                 </div>
