@@ -2,16 +2,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import Head from 'next/head';
+import Cookies from 'js-cookie';
 
 function WaitList() {
     const [successText, setSuccessText] = useState('')
     const [email, setEmail] = useState('')
 
+    const joinWaitlist = async () => {
+        // Send email here then wait a while to let user know 
+        Cookies.set('acadeva_waitlist', 'usr_accept', { expires: Infinity });
+        await fetch('https://api.acadeva.xyz/waitlist/add', {
+            method: 'POST',
+            body: JSON.stringify({ email }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log('Email success');
+        setSuccessText('Thank you for joining our waitlist 🚀');
+        setTimeout(() => {
+            setSuccessText('')
+            window.location.href = 'https://quithn.acadeva.xyz/'
+        }, 3500)
+
+    }
+
+    const closeWaitList = () => {
+        Cookies.set('acadeva_waitlist', 'usr_reject', { expires: 2 });
+        window.location.href = 'https://quithn.acadeva.xyz/'
+    }
+
     return (
         <>
             <Head>
                 <link rel="icon" type="image/svg+xml" href="/favicon.png" />
-                <title>Quithn − Your book. Your quiz. Your way</title>
+                <title>Join waitlist − The next big thing</title>
                 <meta name="description" content="It could get even better. We're building something even bigger" />
 
                 <meta property="og:url" content="https://quithn.acadeva.xyz/" />
@@ -30,7 +55,7 @@ function WaitList() {
             <div className="modal-container">
                 <div className="m-card">
                     <div className={`success`}>
-                        <p>w
+                        <p>
                             {successText}
                         </p>
                     </div>
@@ -64,13 +89,11 @@ function WaitList() {
                         </span>
                         <hr></hr>
                     </div>
-                    <input title="email" className="email-field" placeholder="e.g. helloworld@gmail.com"
+                    <input title="email" className="email-field" placeholder="e.g. johndoe@gmail.com"
                         value={email}
                         onInput={(e: any) => setEmail(e.target.value)}
                     />
-                    <label className="upload-label no-margin">
-                        <div className="btn">Join waitlist</div>
-                    </label>
+                    <button className="generate-button" onClick={joinWaitlist}>Join Waitlist</button>
                     <label className="upload-label no-margin">
                         <div className="btn">Use Quithn</div>
                     </label>

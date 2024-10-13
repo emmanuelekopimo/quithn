@@ -19,6 +19,7 @@ function Home() {
     const [link, setLink] = useState('')
     const [id, setId] = useState('')
     const [email, setEmail] = useState('')
+    const [emailWaitList, setEmailWaitList] = useState('')
     const [numberOfQuestions, setNumberOfQuestions] = useState('5')
     const [showPopUp, setShowPopUp] = useState(false)
 
@@ -103,28 +104,43 @@ function Home() {
     }
 
     const restart = async () => {
-        // const cookieValue = Cookies.get('acadeva_waitlist');
-        // if (!cookieValue) {
-        //     setShowPopUp(true)
-        // }
+        const cookieValue = Cookies.get('acadeva_waitlist');
+        if (!cookieValue) {
+            setShowPopUp(true)
+        }
         setDone(false)
 
     }
 
-    const joinWaitlist = () => {
+    const joinWaitlist = async () => {
         // Send email here then wait a while to let user know 
         Cookies.set('acadeva_waitlist', 'usr_accept', { expires: Infinity });
-        setDone(false)
+        await fetch('https://api.acadeva.xyz/waitlist/add', {
+            method: 'POST',
+            body: JSON.stringify({ email: emailWaitList }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log('Email success');
+        setSuccessText('Thank you for joining our waitlist 🚀');
+        setTimeout(() => {
+            setSuccessText('')
+            setDone(false)
+            setShowPopUp(false)
+        }, 3500)
+
     }
 
     const closeWaitList = () => {
         Cookies.set('acadeva_waitlist', 'usr_reject', { expires: 2 });
         setDone(false)
+        setShowPopUp(false)
     }
 
     const handleFileChange = (event: any) => {
         const file = event.target.files[0];
-        const maxSize = 50 * 1024 * 1024; // 10MB in bytes
+        const maxSize = 50 * 1024 * 1024; // 50MB in bytes
 
         if (file && file.type !== "application/pdf") {
             setErrorText('Please select a valid PDF file');
@@ -202,7 +218,7 @@ function Home() {
                 <div className="modal-container">
                     <div className="m-card">
                         <div className={`success`}>
-                            <p>w
+                            <p>
                                 {successText}
                             </p>
                         </div>
@@ -237,14 +253,12 @@ function Home() {
                             <hr></hr>
                         </div>
                         <input title="email" className="email-field" placeholder="e.g. helloworld@gmail.com"
-                            value={email}
-                            onInput={(e: any) => setEmail(e.target.value)}
+                            value={emailWaitList}
+                            onInput={(e: any) => setEmailWaitList(e.target.value)}
                         />
-                        <label className="upload-label no-margin" onClick={joinWaitlist}>
-                            <div className="btn">Join waitlist</div>
-                        </label>
+                        <button className="generate-button" onClick={joinWaitlist}>Join Waitlist</button>
                         <label className="upload-label no-margin" onClick={closeWaitList}>
-                            <div className="btn">No, thanks</div>
+                            <div className="btn">No. Thanks</div>
                         </label>
                     </div>
                 </div >}
