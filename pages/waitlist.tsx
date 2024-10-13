@@ -28,7 +28,6 @@ function WaitList() {
     }
 
     const closeWaitList = () => {
-        Cookies.set('acadeva_waitlist', 'usr_reject', { expires: 2 });
         window.location.href = 'https://quithn.acadeva.xyz/'
     }
 
