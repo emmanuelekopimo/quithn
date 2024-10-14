@@ -36,14 +36,14 @@ function Home() {
         let retryCount = 0;
         const maxRetries = 3;
         let success = false;
-
+        let cleanedPrompt = prompt.replace(/\n/g, ". ");
         while (retryCount < maxRetries && !success) {
             try {
                 const response = await fetch('https://quithn.onrender.com/upload', {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'prompt': prompt + `. Keep it simple. Make it ${numberOfQuestions} questions in total`,
+                        'prompt': cleanedPrompt + `. Keep it simple. Make it ${numberOfQuestions} questions in total`,
                     },
                 });
 
