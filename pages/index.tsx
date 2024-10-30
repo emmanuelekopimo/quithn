@@ -36,7 +36,7 @@ function Home() {
         let retryCount = 0;
         const maxRetries = 3;
         let success = false;
-        let cleanedPrompt = prompt.replace(/\n/g, ". ");
+        const cleanedPrompt = prompt.replace(/\n/g, ". ");
         while (retryCount < maxRetries && !success) {
             try {
                 const response = await fetch('https://quithn.onrender.com/upload', {

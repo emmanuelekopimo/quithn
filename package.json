@@ -12,6 +12,7 @@
     "@babel/runtime": "^7.25.7",
     "js-cookie": "^3.0.5",
     "next": "^14.2.15",
+    "nextjs-google-analytics": "^2.3.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2"
