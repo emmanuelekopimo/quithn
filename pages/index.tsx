@@ -39,7 +39,7 @@ function Home() {
         const cleanedPrompt = prompt.replace(/\n/g, ". ");
         while (retryCount < maxRetries && !success) {
             try {
-                const response = await fetch('https://quithn.onrender.com/upload', {
+                const response = await fetch('https://hackathon-quithn-backend.onrender.com/upload', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -178,7 +178,7 @@ function Home() {
 
     const share = async () => {
         try {
-            await fetch('https://quithn.onrender.com/share', {
+            await fetch('https://hackathon-quithn-backend.onrender.com/share', {
                 method: 'POST',
                 body: JSON.stringify({ email, id }),
                 headers: {
