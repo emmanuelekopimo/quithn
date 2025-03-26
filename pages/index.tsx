@@ -398,7 +398,7 @@ function Home() {
                 </div>
 
                 <footer className="footer">
-                    © Quithn team (GDGOC University of Uyo Hackathon 2024)
+                    © Quithn team
                 </footer>
             </div>
             {
